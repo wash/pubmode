@@ -1,0 +1,91 @@
+PubMode provides an interface to the NCBI PubMed database. Therefore,
+users of PubMode have to be aware of the the following disclaimer and
+copyright notice that applies to any service using the NCBI API.
+
+
+
+Copyright and Disclaimers
+=========================
+
+Government information available from this site is within the public
+domain. Public domain information on the National Library of Medicine
+(NLM) Web pages may be freely distributed and copied. However, it is
+requested that in any subsequent use of this work, NLM be given
+appropriate acknowledgment.
+ 
+This site also contains resources such as PubMed Central, Bookshelf,
+OMIM, and PubChem which incorporate material contributed or licensed
+by individuals, companies, or organizations that may be protected by
+U.S. and foreign copyright laws. All persons reproducing,
+redistributing, or making commercial use of this information are
+expected to adhere to the terms and conditions asserted by the
+copyright holder. Transmission or reproduction of protected items
+beyond that allowed by fair use (PDF) as defined in the copyright laws
+requires the written permission of the copyright owners.  Molecular
+Database Availability Databases of molecular data on the NCBI Web site
+include such examples as nucleotide sequences (GenBank), protein
+sequences, macromolecular structures, molecular variation, gene
+expression, and mapping data. They are designed to provide and
+encourage access within the scientific community to sources of current
+and comprehensive information. Therefore, NCBI itself places no
+restrictions on the use or distribution of the data contained
+therein. However, some submitters of the original data (or the country
+of origin of such data) may claim patent, copyright, or other
+intellectual property rights in all or a portion of the data (that has
+been submitted). NCBI is not in a position to assess the validity of
+such claims and, therefore, cannot provide comment or unrestricted
+permission concerning the use, copying, or distribution of the
+information contained in the molecular databases.  Disclaimer
+Liability: For documents and software available from this server, the
+U.S. Government does not warrant or assume any legal liability or
+responsibility for the accuracy, completeness, or usefulness of any
+information, apparatus, product, or process disclosed. Various content
+on this site may be subject to copyright by journals and
+publishers. Use of the copyrighted material is subject to the terms
+and conditions of use established by the journal or publisher.
+
+Endorsement: NCBI does not endorse or recommend any commercial
+products, processes, or services. The views and opinions of authors
+expressed on NCBI's Web sites do not necessarily state or reflect
+those of the U.S. Government, and they may not be used for advertising
+or product endorsement purposes.
+
+External Links: Some NCBI Web pages may provide links to other
+Internet sites for the convenience of users. NCBI is not responsible
+for the availability or content of these external sites, nor does NCBI
+endorse, warrant, or guarantee the products, services, or information
+described or offered at these other Internet sites. Users cannot
+assume that the external sites will abide by the same Privacy Policy
+to which NCBI adheres. It is the responsibility of the user to examine
+the copyright and licensing restrictions of linked pages and to secure
+all necessary permissions.
+
+Pop-Up Advertisements: When visiting our Web site, your Web browser
+may produce pop-up advertisements. These advertisements were most
+likely produced by other Web sites you visited or by third party
+software installed on your computer. The NLM does not endorse or
+recommend products or services for which you may view a pop-up
+advertisement on your computer screen while visiting our site.
+
+Medical Information It is not the intention of NLM to provide specific
+medical advice but rather to provide users with information to better
+understand their health and their diagnosed disorders. Specific
+medical advice will not be provided, and NLM urges you to consult with
+a qualified physician for diagnosis and for answers to your personal
+questions.  Conditions of Use This site is maintained by the
+U.S. Government and is protected by various provisions of Title 18 of
+the U.S. Code. Violations of Title 18 are subject to criminal
+prosecution in a federal court. For site security purposes, as well as
+to ensure that this service remains available to all users, we use
+software programs to monitor traffic and to identify unauthorized
+attempts to upload or change information or otherwise cause damage. In
+the event of authorized law enforcement investigations and pursuant to
+any required legal process, information from these sources may be used
+to help identify an individual.
+
+
+Revised: January 10, 2007.
+
+
+See http://www.ncbi.nlm.nih.gov/About/disclaimer.html for updates of
+this document.

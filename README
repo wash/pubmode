@@ -1,0 +1,349 @@
+PubMode -- An interface to PubMed for Emacs
+===========================================
+
+PubMode is an Emacs interface to the PubMed library of biomedical
+literature. Its purpose is to give streamlined access to PubMed
+citations during the creation of documents without any distractions
+like web-browsers, import-scripts, or external bibliography
+applications. In particular, the mode is designed to work with BibTeX
+and LaTeX fully automatizing the process of creating BibTeX entries
+and inserting citations.
+
+
+0. Licence
+==========
+
+PubMode is free software and licenced under GNU Genaral Public License
+version 3.
+
+See file COPYING for details. See file NCBI-DISCLAIMER for copyright
+and disclaimers for PubMed data.
+
+1. Requirements
+===============
+
+Currently the mode only runs with GNU Emacs 22.x.  
+
+
+2. Installation
+===============
+
+Add the 3 lines to .emacs and everything should be ready for use
+
+(add-to-list 'load-path "~/some/directory/PubMode-0.1/lisp")
+(autoload 'pub-med "pub" "PubMed Interface for Emacs" t)
+(global-set-key (kbd "C-c p") 'pub-med)
+
+If you want (or must) access the internet through a proxy-server you
+have to tell Emacs to do so.  Run "M-x customize-variable" on the
+variable "url-proxy-services". In the customization menu, put in the
+address of your http-proxy and save the settings.
+
+See file INSTALL for more detailed installation instructions.
+
+3. Usage
+========
+
+Below you find a detailed documentation of all functions. Before you
+read it, I suggest to simply give it a try and run "M-x pub-med". 
+
+
+3.1. Invocation
+===============
+
+Call the command "M-x pub-med" and you will be prompted for your
+search term. Input your search term as you would do it on the NCBI
+web-site. 
+
+See www.ncbi.nlm.nih.gov/entrez/query/static/help/pmhelp.html 
+for details.
+
+3.2. The selection window
+=========================
+
+3.2.1. Navigation
+-----------------
+
+Depending on your internet connection and the availability of the NCBI
+web-site, the resuts will appear after a few moments. Your current
+window will be split and you will be presented a list of articles in a
+buffer called *PubMed Results*.
+
+Use the arrow keys [Up] and [Down] to scroll through the list of
+articles. By default only 15 articles are shown per site. Using the
+[right] and [left] arrow keys you can switch between pages. Note, that
+each page is downloaded separately so there can be some delay if
+switch to page the first time.
+
+To perform a new PubMed search press [p]. To search related articles
+to the current item press [r].
+
+3.2.2. Modes of view
+--------------------
+
+There are three detail levels to view the entries:
+
+ 1: Brief view with only the first author and the reference without title.
+ 2: Summary with full reference and all authors. 
+ 3: Summary with full reference and all authors and abstract.
+
+You can switch between the views using [1] [2] and [3]. If you just
+want to toggle the detail-level for the current item, use [d].
+
+3.2.3. Marking entries
+----------------------
+
+By default all commands described in the next sections work on the
+currently selected items. If you want to apply a command to multiple
+items you can mark items using the space-bar [ ]. For un-marking, also
+use the space-bar. To mark all items on the current page, use [a]. You
+can unmark all items using [d].
+
+3.2.4. Exit the selection buffer
+--------------------------------
+
+[q] closes the *PubMed Results* buffer and also the split window that
+was opened. Also hitting [ENTER] closes the buffer. However, depending
+on the mode (text or BibTeX, see below) it will apply the default
+action to the currently selected item.
+
+
+
+3.3. Importing citations as plain text
+======================================
+
+When writing documentation, presentations, referee-reports, web-sites
+etc. it is often necessary to include references as plain text. 
+
+For this purpose you can hit [t]. This will paste the currently active
+item or all marked items to the buffer where you initiated your PubMed
+search from. Alternatively, using [w] you can copy the text to the
+clipboard (more precisely the Emacs "kill-ring"). You can then insert
+("yank") the text wherever you want using the command "C-y".
+
+The format of the imported citation is the same as you see it in the
+selection window. You can change the detail level as described in
+section 3.2.2.
+
+By default, the [ENTER] key has the same effect as [t] and pastes the
+current item or marked items. However, it immediately exists
+afterwards. Note, that the behaviour of the [ENTER] key is different
+when you are editing a LaTeX file.
+
+
+3.4. Importing citations for use with BibTeX/LaTeX
+==================================================
+
+3.4.1 Setting the BibTeX file
+-----------------------------
+
+PubMod can convert citations to BibTeX format ready for use with
+LaTeX/BibTeX. For the most common scenarios, PubMode will find the
+correct BibTeX file for adding references automatically: If you are
+editing a BibTeX file, the current file will be the target file. If
+you are editing a LaTeX file with a \bibliography statement pointing
+to a BibTeX file, this file will be used. 
+
+In any other situation, you can set the BibTeX file manually by
+pressing [f]. You will be asked automatically, if no file is specified
+and you try to import references.
+
+The currently active BibTeX file is shown in the mode-line of the
+PubMed results buffer in brackets.
+
+You can also set a BibTeX file (e.g. your central reference database)
+that is always used by default. You can set the variable
+pub-bibtex-file in the customization menu (see section 5. Customization
+). If this variable is set, no attempts will be made to choose the
+file automatically and you will not be asked for a file name. You can
+temporarily change this variable for the session using the [f]
+command.
+
+Once a BibTeX file has been specified, PubMed compares the search
+results with the entries in the file on the basis of the PubMed
+identifier (PMID). If there is already an entry with the same PMID the
+item will be marked by "*" in the list.
+
+3.4.2 Importing BibTeX entries
+------------------------------
+
+Hitting the [b] key converts the currently active item or all marked
+items to BibTeX format and appends it to the specified BibTeX file.
+
+They BibTeX key is automatically generated. The default format of the
+key is Name:Year (eg. Smith:2008) but can be customized individually
+(see section 5. Customization).
+
+If there is already an entry with the same key you will be asked what
+to do: Hitting [s] skips the item and does nothing. [r] replaces the
+existing item with the new item. [a] adds the new item to the file
+with a modified key, eg. Smith:2008a, Smith:2008b...
+
+
+3.4.2 Inserting LaTeX citations
+-------------------------------
+
+If you have imported an item to the BibTeX file (indicated by "*") you
+can easily insert a LaTeX citation by pressing [c]. This inserts a
+\citation command at the current position of the buffer where you have
+initiatied your PubMed search. If you have marked several items, they
+will combined in one \citation statement.
+
+If you have started your PubMed search from a file endig in *.tex. The
+default behaviour of the [ENTER] key is a combination of [b]+[c]+[q],
+i.e. it imports the current item/marked items, inserts a corresponding
+\cite statement and exits the buffer.
+
+
+4. Viewing full text articles in external browser
+=================================================
+
+PubMode allows to view biblographic details of articles as well as the
+abstract. If you want to view the full-text of the article, press
+[o]. This opens an external browser showing the full-text link as
+provided by the PubMed LinkOut system. If no full-text is available
+for an article, this command redirects you to the PubMed entry on the
+NCBI web-site. You can set your default browser and its behaviour (new
+window, new tab etc) by customizing several variables in the
+browse-url group.
+
+
+5. Keyboard commands
+====================
+
+  [Up]/[Down]    Select previous/next item in the list.
+ [Left]/[Right]   Switch to previous/next page.
+
+     [1]         `brief view'
+     [2]         `summary view' 
+     [3]         `abstract view'
+     [d]         Toggle detail level of current item.
+
+   [Space]       Mark/un-mark current item.
+   [a]/[u]       Mark/un-mark all items on the current page.
+
+     [t]         Import current item/marked items as text.
+
+     [b]         Import current item/marked items to BibTeX file.
+     [c]         Insert citation for current item/marked items. Item 
+                 has to be imported before it can be cited. 
+     [w]         Copy current item/selected items to the kill-ring 
+                 (`clipboard') for yanking (`pasting') into another
+                 buffer.
+     [p]         New PubMed query.
+     [r]         Search related articles for current item.
+
+     [f]         Choose BibTex file.
+
+     [o]         Open full-text (if available) in external browser.
+
+     [h]         Show this help screen.
+     [q]         Exit the PubMed selection window.
+   [ENTER]       Import and cite item/selected items and exit ([b]+[c]+[q])
+
+
+
+6. Customization
+================
+
+There are a few customization variables available. You can either set
+them manually in your .emacs or by using the standard customization
+interface. You can run "M-x customize-group" and choose the group "pub".
+
+
+pub-autos-save
+--------------
+
+If non-nil, the BibTeX-file is saved automatically
+upon exit of the PubMed results window. By default this option is set
+to true.
+
+pub-key-template 
+----------------
+
+Define the pattern of the BibTeX key.
+
+You can access the following special fields:
+
+%N Last name of first author (first letter uppercase), eg. Smith
+#N Last name of first author (all lowercase), eg. smith
+@N Last name of first author (all uppercase), eg. SMITH
+
+%J Journal abbreviation (first letters uppercase), eg. J_Mol_Biol
+#J Journal abbreviation (all lowercase), eg. j_mol_biol
+@J Journal abbreviation (all uppercase), eg. J_MOL_BIOL
+
+%P PubMed ID, eg. 12621444
+
+%Y Year (four digits), eg. 2008
+%y Year (two digits), eg. 08
+
+The length of the author field can be limited by appending the
+number of characters to the N, eg. @N3 would give SMI instead of
+SMITH. 
+
+The default key is %N:%Y, which gives keys of the form Smith:2008.
+
+pub-limit
+---------
+
+Number of items shown on one page. Default is 15.
+
+pub-bibtex-file 
+---------------
+
+Default destination file for imported BibTeX entries.
+
+If this variable is empty, the BibTeX file is determined as
+follows: The current file is used if PubMode is called from a
+BibTeX file itself. If a \bibliography LaTeX command can be
+found this file is used. If none of both applies, the user is
+asked to set a destination manually.
+
+pub-bibtex-abstract 
+-------------------
+
+If non-nil abstracts are included as field in the BibTeX entries created. 
+
+
+pub-double-brace 
+----------------
+
+Enclose title in BibTex entry in double braces or not. Hide Rest If
+this is option is non-nil, the title field in the BibTeX entry will be
+enclosed in an additional set of curly brackets {}. This makes BibTeX
+preserving upper and lowercase. In general you should let the style
+decide which letters to print upper or lowercase, which, however, may
+require manually insertion of braces to fix words like DNA or IGF-2.
+
+pub-default-detail
+------------------
+
+Set your default detail level 1,2 or 3 of the PubMode selection window.
+
+   1: brief view with only the first Author and the reference without title.
+   2: Summary with full reference and all authors. 
+   3: Summary with abstract 
+
+By default this value is initialized to 2.
+
+pub-line-width
+--------------
+
+Line width of the text in the PubMode selection window. Lines longer
+than that value are broken. Default value is 65.
+
+
+7. Contact
+==========
+
+Stefan Washietl <wash@tbi.univie.ac.at>
+
+See www.tbi.univie.ac.at/~wash/PubMode for updates and News.
+
+Feel free to contact me with comments/bug-fixes/feature-request etc.
+
+
+
+
+

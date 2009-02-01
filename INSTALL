@@ -1,0 +1,51 @@
+
+Installation instructions
+=========================
+
+Quick-start
+-----------
+
+Add the 3 lines to .emacs and everything should be ready for use
+(replace ~/some/dir with the appropriate location):
+
+(add-to-list 'load-path "~/some/directory/PubMode/lisp")
+(autoload 'pub-med "pub" "PubMed Interface for Emacs" t)
+(global-set-key (kbd "C-c p") 'pub-med)
+
+
+Details
+-------
+
+For PubMode to work correctly, the files ending in *el in the lisp
+sub-directory must reside in a location where Emacs can find
+them. More precisely the location must be listed in the "load-path"
+variable. 
+
+You can either copy the files to a path that is already in the
+"load-path" (e.g. "/usr/local/share/emacs/site-lisp") or add a new
+path yourself. For the latter, you have to add the following line in
+your .emacs configuration file:
+
+(add-to-list 'load-path "~/some/directory/PubMode-0.1/lisp")
+
+
+To make the command "M-x pub-med" available you need to tell Emacs
+that it exists and where the code can be found. Add the following
+line to .emacs:
+
+(autoload 'pub-med "pub" "PubMed Interface for Emacs" t)
+
+If you plan to use PubMed searches regularly you can define a
+short-key. The following line binds the keys Control-C-p to the
+pub-med command:
+
+(global-set-key (kbd "C-c p") 'pub-med)
+
+
+Proxy settings
+--------------
+
+If you want (or must) access the internet through a proxy-server you
+have to tell Emacs to do so.  Run "M-x customize-variable" on the
+variable "url-proxy-services". In the customization menu, put in the
+address of your http-proxy and save the settings.
