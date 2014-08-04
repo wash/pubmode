@@ -196,12 +196,18 @@ Lines longer than that value are broken"
 (define-key pub-keymap [(down)] 'pub-next-entry)
 (define-key pub-keymap [(up)] 'pub-prev-entry)
 
+(define-key pub-keymap (kbd "C-n") 'pub-next-entry)
+(define-key pub-keymap (kbd "C-p") 'pub-prev-entry)
+
 (define-key pub-keymap "q" 'pub-close-selection-buffer)
 
 (define-key pub-keymap "d" 'pub-toggle-level)
 
 (define-key pub-keymap [(right)] 'pub-next-page)
 (define-key pub-keymap [(left)] 'pub-prev-page)
+
+(define-key pub-keymap (kbd "C-v") 'pub-next-page)
+(define-key pub-keymap (kbd "C-V") 'pub-prev-page)
 
 (define-key pub-keymap "b" 'pub-export-bibtex)
 
